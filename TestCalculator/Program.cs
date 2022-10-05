@@ -199,7 +199,7 @@ namespace TestCalculator
                 Console.Write("You are not allowed divide by 0 ");
                 return null;
             }
-
+            //
     }
     public static double Addition(double[] arr)
     {
