@@ -6,7 +6,7 @@ public class calculator
     {
 
 
-        //   
+           
         double num1;
         double num2;
         int menu;
