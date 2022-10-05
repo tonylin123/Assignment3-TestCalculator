@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Linq;
-public class calculator
+
+
+
+namespace TestCalculator
+{
+    public class calculator
 {
     public static void Main()
     {
 
 
-           
+        int num3;
+        int num4;
         double num1;
         double num2;
         int menu;
@@ -80,7 +86,8 @@ public class calculator
                         arr1[i] = double.Parse(Console.ReadLine());
 
                     }
-                    if (arr1.Length == 2)
+                        
+                        if (arr1.Length == 2)
                     {
 
 
@@ -94,6 +101,10 @@ public class calculator
                     {
 
                         Console.WriteLine("The Substraction of {0}", Substraction(arr1));
+                            
+                           
+                            
+
 
 
                     }
@@ -113,9 +124,13 @@ public class calculator
                     break;
 
                 case 4:
-                    GetInputFromUser(out num1, out num2);
+                        Console.WriteLine("Enter the first integer number:");
+                        num3 = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("Enter the second integer number:");
+                        num4 = Convert.ToInt32(Console.ReadLine());
+                        //GetInputFromUser(out num1, out num2);
                     //Division
-                    Division(num1, num2);
+                    Division(num3, num4);
 
 
 
@@ -168,27 +183,27 @@ public class calculator
         return num1 * num2;
 
     }
-    public static double Division(double num1, double num2)
+   public static decimal? Division(int num1, int num2)
     {
+           
+            try
+            {
 
+                decimal result = num1 / num2;
+                Console.Write("The Division of {0}  and {1} is : {2}\n", num1, num2, num1/ num2);
+                return result;
 
-
-        if (num2 == 0)
-        {
-            Console.Write("You are not allowed divide by 0 ");
-
-        }
-        else
-        {
-
-            Console.Write("The Division of {0}  and {1} is : {2}\n", num1, num2, num1 / num2);
-
-        }
-        return num1 / num2;
+            }
+            catch (DivideByZeroException)
+            {
+                Console.Write("You are not allowed divide by 0 ");
+                return null;
+            }
 
     }
     public static double Addition(double[] arr)
     {
+        
 
         double sum = 0;
         for (int i = 0; i < arr.Length; i++)
@@ -200,16 +215,19 @@ public class calculator
         return sum;
     }
 
-    public static double Substraction(double[] arr)
+    public static double Substraction(double[] arr1)
     {
-
-        double sum = 0;
-        for (int i = 0; i < arr.Length; i++)
-        {
-            sum -= arr[i];
-
+            double num1;
+            num1 = arr1.First();
+            double sum = 0;
+            double total = 0;
+         for (int i = 1; i < arr1.Length; i++)
+                {
+                 sum -= arr1[i] ;
+                total = sum + num1;
 
         }
-        return sum;
+        return total;
     }
+}
 }
