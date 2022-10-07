@@ -1,28 +1,33 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using System.Drawing;
 using System.Linq;
-
-
+using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TestCalculator
 {
     public class calculator
     {
+        static string[] userInput;
+        static double[] arr;
+      
         public static void Main()
         {
-
-
+           
             int num3;
             int num4;
             double num1;
             double num2;
             int menu;
 
-            string[] userInput;
-            double[] arr;
+
 
             while (true)
             {
+
+
+           
 
                 Console.Write("\n\n");
                 Console.Write("A menu driven program for a calculator:\n");
@@ -37,15 +42,29 @@ namespace TestCalculator
                 Console.Write("1-Addition.\n2-Substraction.\n3-Multiplication.\n4-Division.\n5-Exit.\n");
                 Console.Write("\nInput your choice :");
 
-                menu = Convert.ToInt32(Console.ReadLine());
+
+                try
+                {
+                    menu = Convert.ToInt32(Console.ReadLine());
+               
+               
 
 
                 switch (menu)
-                {
+                   
+                    {
 
                     case 1:
 
-                        GetInputFromUser(out userInput, out arr);
+
+                        while (!GetInputFromUser())
+                        {
+
+                        }
+
+
+
+
 
                         //}
                         if (arr.Length == 2)
@@ -55,9 +74,8 @@ namespace TestCalculator
                         else
                         {
 
-                            Console.WriteLine("The Addition of {0}", Addition(arr));
+                            Console.WriteLine("The Addition of number is  {0}  ", Addition(arr));
                         }
-
 
 
 
@@ -65,8 +83,11 @@ namespace TestCalculator
                         break;
 
                     case 2:
+                        while (!GetInputFromUser())
+                        {
 
-                        GetInputFromUser(out userInput, out arr);
+                        }
+                        
 
 
 
@@ -80,7 +101,7 @@ namespace TestCalculator
                         else
                         {
 
-                            Console.WriteLine("The Substraction of {0}", Substraction(arr));
+                            Console.WriteLine("The Substraction of number is ", Substraction(arr));
 
                         }
 
@@ -127,19 +148,69 @@ namespace TestCalculator
 
                         break;
                 }
+
+                    //// } catch(FormatException e) {
+                    //     Console.WriteLine(e.Message);
+                    //     Console.WriteLine("Please enter a number");
+
+                    // }
+                }
+                catch (FormatException e)
+                {
+
+                    Console.Write(e.Message);
+                }
+
                 Console.WriteLine("Any key return to the menu\n");
                 Console.ReadKey();
             }
         }
+        //private static void getmenunumber()
+        //{
+        //    int menu;
+        //    try
+        //    {
+        //     menu = Convert.ToInt32(Console.ReadLine());
+        //    }
+        //    catch (FormatException e)
+        //    {
+        //        {
 
-        private static void GetInputFromUser(out string[] userInput, out double[] arr)
+        //            Console.WriteLine(e.Message);
+        //            Console.WriteLine("Please enter a correct format");
+                    
+
+        //        }
+               
+
+        //    }
+        //    return;
+        //}
+
+
+
+        private static bool GetInputFromUser()
         {
-            Console.WriteLine("input all numbers,with ", "");
+
+            Console.WriteLine("input all numbers separated with comma (,)");
             // Console.WriteLine("Enter how many numbers you like to caculate");
+            try
+            {
+                userInput = Console.ReadLine().Split(',');
+                arr = userInput.Select(i => double.Parse(i)).ToArray();
+            }
+            catch (FormatException e)
+            {
+                {
 
-            userInput = Console.ReadLine().Split(',');
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine("Please enter a correct format");
+                    return false;
 
-            arr = userInput.Select(i => double.Parse(i)).ToArray();
+                }
+
+            }
+            return true;
         }
 
         // user input
@@ -204,7 +275,7 @@ namespace TestCalculator
 
         public static double Substraction(double[] arr1)
         {
-           // double num1;
+            // double num1;
             //num1 = arr1.First();
             double sum = 0;
             double total = 0;
